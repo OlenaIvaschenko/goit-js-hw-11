@@ -6,7 +6,7 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 import iconCross from '../src/img/icon/cross-min.png';
-import fetchImages from './js/pixabay-api';
+//
 
 const form = document.querySelector('.form');
 const loaderElement = document.querySelector('.loader');
