@@ -21,14 +21,10 @@ input {
 }
 input:hover {
   border-radius: 4px;
-  width: 272px;
-  height: 40px;
   background: #fff;
 }
 input:focus {
   border-radius: 4px;
-  width: 272px;
-  height: 40px;
   background: #fff;
 }
 .submit-button {
@@ -56,7 +52,7 @@ input:focus {
   gap: 24px;
   margin: 0 156px;
 }
-.gallery-item-info {
+.info {
   position: absolute;
   width: 100%;
   height: 48px;
@@ -64,7 +60,21 @@ input:focus {
   left: 0;
   display: flex;
   justify-content: space-evenly;
+  align-items: center; /* Для вертикального вирівнювання */
   background-color: #fff;
+  font-size: 14px; /* Розмір шрифта для підписів */
+  color: #333; /* Колір тексту */
+  opacity: 1; /* Піжписи відображаються */
+  /* transition: opacity 0.3s ease; Плавний перехід для підписів */
+}
+.info p {
+  margin: 0; /* Відсутні відступи для параграфів */
+  padding: 0 8px; /* Горизонтальні відступи для тексту */
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Забезпечує правильне співвідношення зображення */
 }
 .gallery-item {
   border-bottom: 1px solid #808080;

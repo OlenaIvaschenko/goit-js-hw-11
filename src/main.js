@@ -1,3 +1,6 @@
+import { renderImages } from './js/render-functions';
+import { fetchImages } from './js/pixabay-api';
+
 // iziToast імпорт бібліотеки
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
@@ -9,47 +12,41 @@ import iconCross from '../src/img/icon/cross-min.png';
 //
 
 const form = document.querySelector('.form');
-const loaderElement = document.querySelector('.loader');
+const loader = document.querySelector('.loader');
 const gallery = document.querySelector('.gallery');
-const errorMesage = {
-  message:
-    'Sorry, there are no images matching your search query.Please try again!',
-  messageColor: '#fff',
-  backgroundColor: '#ef4040',
-  position: 'topRight',
-  iconUrl: iconCross,
-};
-new SimpleLightbox('.gallery a', {
-  captionsData: 'alt',
-  captionDelay: 250,
-});
 
-document.querySelector('.form').addEventListener('submit', event => {
+form.addEventListener('submit', async event => {
   event.preventDefault();
-  const searchQuery = event.target.elements['search-text'].value.trim();
+  const query = event.target.elements['search-text'].value.trim();
+  console.log(query);
 
-  if (!searchQuery) {
+  if (!query) {
     iziToast.error({
       title: 'Error',
       message: 'Please enter a search query!',
     });
     return;
   }
-  fetchImages(searchQuery);
+
+  gallery.innerHTML = '';
+  loader.classList.add('visible');
+  try {
+    const images = await fetchImages(query);
+
+    if (images.length === 0) {
+      iziToast.warning({
+        title: `Oops!`,
+        message: `No images found. Try again!`,
+      });
+    } else {
+      renderImages(images);
+    }
+  } catch (error) {
+    iziToast.error({
+      title: `Error`,
+      message: ` Failed to fetch images. Try again later!`,
+    });
+  } finally {
+    loader.classList.remove('visible');
+  }
 });
-
-function renderGallery(images) {
-  const gallery = document.querySelector('.gallery'); // Знаходимо контейнер
-  gallery.innerHTML = ''; // Очищаємо старі результати
-
-  const markup = images
-    .map(image => {
-      return `
-        <a href="${image.largeImageURL}" class="gallery-item">
-          <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy">
-        </a>`;
-    })
-    .join('');
-
-  gallery.innerHTML = markup; // Додаємо HTML-код у контейнер галереї
-}
