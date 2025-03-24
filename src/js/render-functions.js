@@ -28,12 +28,12 @@ export function renderImages(images) {
     )
     .join('');
 
-  const lightbox = new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
-    captionDelay: 250,
-  });
   lightbox.refresh();
 }
-export function clearGallery() {
-  gallery.innerHTML = '';
-}
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
+// export function clearGallery() {
+//   gallery.innerHTML = '';
+// }

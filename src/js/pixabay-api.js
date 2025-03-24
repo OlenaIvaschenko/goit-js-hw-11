@@ -9,8 +9,6 @@ const BASE_URL = 'https://pixabay.com/api/';
 
 export async function fetchImages(query) {
   try {
-    // loader.style.display = 'block'; // Показуємо індикатор завантаження
-
     const response = await axios.get(BASE_URL, {
       params: {
         key: API_KEY,
